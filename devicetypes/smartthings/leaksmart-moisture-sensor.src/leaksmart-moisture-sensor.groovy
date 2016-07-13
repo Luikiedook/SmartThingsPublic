@@ -119,7 +119,7 @@ private Map parseCatchAllMessage(String description) {
                 def value = getTemperature(temp)
                 resultMap = getTemperatureResult(value)
                 break
-            case 0x0B02:
+            case 0x0b02:
                 log.debug "B02 Cluster Data: ${cluster.data}"
                 String temp = cluster.data[2];
                 log.debug "B02 temp data ${temp}"
@@ -305,13 +305,12 @@ private Map parseAlarmCode(value) {
 def refresh() {
     log.debug "Refreshing"
     def refreshCmds = [
-    zigbee.readAttribute(0x0402, 0x0000), "delay 200",
-    zigbee.readAttribute(0x0001, 0x0020), "delay 200",
-    zigbee.readAttribute(0x0b02, 0x0000), "delay 200"
+    //zigbee.readAttribute(0x0402, 0x0000), "delay 200",
+    //zigbee.readAttribute(0x0001, 0x0020), "delay 200",
+    zigbee.readAttribute(0x0b02, 0x0000), "delay 200",
     //zigbee.readAttribute(0xFC02, 0x0001), "delay 200"
-
-    //	"st rattr 0x${device.deviceNetworkId} 1 0x402 0", "delay 200",
-    //	"st rattr 0x${device.deviceNetworkId} 1 1 0x20", "delay 200",
+    	"st rattr 0x${device.deviceNetworkId} 1 0x402 0", "delay 200",
+    	"st rattr 0x${device.deviceNetworkId} 1 1 0x20", "delay 200"
 	]
 
 	return refreshCmds + enrollResponse()
